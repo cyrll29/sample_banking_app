@@ -31,7 +31,6 @@ const AuthForm = ({ type } : { type: string }) => {
 
     const formSchema = authFormSchema(type);
 
-    // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -40,13 +39,24 @@ const AuthForm = ({ type } : { type: string }) => {
         },
     })
     
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
+    function onSubmit(data: z.infer<typeof formSchema>) {
         setIsLoading(true);
-        console.log(values)
-        setIsLoading(false);
+        try {
+            
+            if (type === 'sign-up') {
+                const userData = {
+                    firstName: data.firstName,
+                }
+            }
+
+            if (type === 'sign-in') {
+
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
     
 
